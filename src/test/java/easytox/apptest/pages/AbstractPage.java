@@ -2,11 +2,8 @@ package easytox.apptest.pages;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import cucumber.api.java.en.Given;
 import easytox.apptest.utils.WebConnector;
 
 public class AbstractPage {
@@ -18,9 +15,9 @@ public class AbstractPage {
 		this.driver=driver;
 	}
 	
-	public LoginPage navigatetowebApp(){
+	public LoginPage navigateToWebApp(){
 		
-		driver.navigate().to(connector.getstring(WebConnector.myUrl.URL_SIT,"LoginURL"));
+		driver.navigate().to(connector.getString(WebConnector.myUrl.URL_SIT,"LoginURL"));
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		return new LoginPage(driver);
@@ -30,7 +27,11 @@ public class AbstractPage {
 		driver.quit();
 	}
 
-	public void waittime() throws Throwable{
-		Thread.sleep(5000);
+	public void waitTime(int period) throws Throwable{
+		Thread.sleep(period);
+	}
+
+	public String getCurrentUrl(){
+		return driver.getCurrentUrl();
 	}
 }

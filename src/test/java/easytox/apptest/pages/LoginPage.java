@@ -2,9 +2,6 @@ package easytox.apptest.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
 
 
 import easytox.apptest.utils.WebConnector;
@@ -18,17 +15,17 @@ public class LoginPage extends AbstractPage  {
 	
 		
 	public LoginPage EnterUserName(String username){
-		driver.findElement(By.name(connector.getstring(WebConnector.myUrl.URL_OR,"LoginUsername"))).sendKeys(username);
+		driver.findElement(By.name(connector.getString(WebConnector.myUrl.URL_OR,"LoginUsername"))).sendKeys(username);
 		return new LoginPage(driver);
 	}
 	
 	public LoginPage EnterPassword(String password){
-		driver.findElement(By.name(connector.getstring(WebConnector.myUrl.URL_OR,"LoginPassword"))).sendKeys(password);
+		driver.findElement(By.name(connector.getString(WebConnector.myUrl.URL_OR,"LoginPassword"))).sendKeys(password);
 		return new LoginPage(driver);
 	}
 	
 	public void Loginbuttonclick(){
-		driver.findElement(By.xpath(connector.getstring(WebConnector.myUrl.URL_OR,"LoginButton"))).click();
+		driver.findElement(By.xpath(connector.getString(WebConnector.myUrl.URL_OR,"LoginButton"))).click();
 		
 	}
 

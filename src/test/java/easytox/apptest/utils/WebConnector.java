@@ -54,7 +54,7 @@ public class WebConnector {
 			}	
 		
 	}
-	public String getstring(myUrl x ,String value){
+	public String getString(myUrl x , String value){
 		String Str = null;
 		switch(x)
 		{

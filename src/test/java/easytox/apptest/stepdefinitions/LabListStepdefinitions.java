@@ -7,17 +7,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import easytox.apptest.pages.AbstractPage;
 import easytox.apptest.pages.LablistPage;
 import easytox.apptest.pages.LoginPage;
 import easytox.apptest.utils.WebConnector;
@@ -36,7 +32,7 @@ public class LabListStepdefinitions {
         System.setProperty("webdriver.chrome.driver", "src//test//java//easytox//apptest//driver//chromedriver.exe");
         driver = new ChromeDriver();
         loginpage = new LoginPage(driver);
-        loginpage.navigatetowebApp();
+        loginpage.navigateToWebApp();
         lablist = new LablistPage(driver);
 
         //	Assert.assertEquals(forgotpwd, "Click here");
@@ -49,12 +45,12 @@ public class LabListStepdefinitions {
         String forgotpwd = driver.findElement(By.linkText("Click here")).getText();
         Assert.assertEquals("Click here", forgotpwd);
         System.out.println(forgotpwd);
-        loginpage.EnterUserName(connector.getstring(WebConnector.myUrl.URL_SIT, "Username"));
+        loginpage.EnterUserName(connector.getString(WebConnector.myUrl.URL_SIT, "Username"));
     }
 
     @And("^I enter password as \"([^\"]*)\"$")
     public void i_enter_the_password(String arg1) {
-        loginpage.EnterPassword(connector.getstring(WebConnector.myUrl.URL_SIT, "Password"));
+        loginpage.EnterPassword(connector.getString(WebConnector.myUrl.URL_SIT, "Password"));
     }
 
     @Then("^click on \"([^\"]*)\" button$")
@@ -70,17 +66,18 @@ public class LabListStepdefinitions {
     //*******Scenario 1: Verifying Lab list table of contents********
     @When("^Click on \"([^\"]*)\" on the menu$")
     public void click_on_on_the_menu(String arg1) throws Throwable {
-        lablist.waittime();
+        lablist.waitTime(2000);
         lablist.Name_colu_click();
-        lablist.waittime();
+        lablist.waitTime(1000);
     }
 
     @Then("^\"([^\"]*)\" screen should be displayed$")
     public void screen_should_be_displayed(String arg1) {
 
         String Labinfo = connector.getWebElement(driver, WebConnector.Identifier.xpath,
-                connector.getstring(WebConnector.myUrl.URL_OR, "LabName_Validation")).getText();
+                connector.getString(WebConnector.myUrl.URL_OR, "LabName_Validation")).getText();
         Assert.assertEquals("Lab name", Labinfo);
+
     }
 
     //************Scenario 2: Verify adding a new lab******************
@@ -94,12 +91,12 @@ public class LabListStepdefinitions {
     @Then("^\"([^\"]*)\" window should be displayed$")
     public void window_should_be_displayed(String arg1) throws Throwable {
         String Addlab = connector.getWebElement(driver, WebConnector.Identifier.xpath,
-                connector.getstring(WebConnector.myUrl.URL_OR, "Addlab_Validation")).getText();
+                connector.getString(WebConnector.myUrl.URL_OR, "Addlab_Validation")).getText();
         //Assertion is still pending to implement
         System.out.println(Addlab);
     }
 
-    //**********Scenario 3: Verify the search box in lablist screen********
+    //**********Scenario 3: Verify the search box in caseList screen********
     @When("^Enter any search criteria and click on search icon$")
     public void enter_any_search_criteria_and_click_on_search_icon() throws Throwable {
         lablist.EnterSearchCriteria();
@@ -109,9 +106,9 @@ public class LabListStepdefinitions {
     public void matching_records_with_entered_data_should_be_displayed_in_the_Lab_list() throws Throwable {
 
         WebDriverWait wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(connector.getstring(WebConnector.myUrl.URL_OR, "SearchCriteria"))));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(connector.getString(WebConnector.myUrl.URL_OR, "SearchCriteria"))));
         String searchresult = connector.getWebElement(driver, WebConnector.Identifier.xpath,
-                connector.getstring(WebConnector.myUrl.URL_OR, "SearchResults")).getText();
+                connector.getString(WebConnector.myUrl.URL_OR, "SearchResults")).getText();
         Thread.sleep(5000);
         Assert.assertEquals("Lab Test", searchresult);
 
@@ -130,7 +127,7 @@ public class LabListStepdefinitions {
 
     @Then("^Click on dropdown to change the number of records to \"([^\"]*)\"$")
     public void click_on_dropdown_that_shows_number_of_records_to_be_displayed_on_the_page(String arg1) throws Throwable {
-        loginpage.waittime();
+        loginpage.waitTime(1500);
         lablist.ChangingNumberofRecordsDisplayedonPage();
 
     }
@@ -146,7 +143,7 @@ public class LabListStepdefinitions {
 
     @When("^Click on \"([^\"]*)\" down arrow icon on any column$")
     public void click_on_down_arrow_icon_on_any_column(String arg1) throws Throwable {
-        loginpage.waittime();
+        loginpage.waitTime(1500);
         lablist.SortingColumns();
     }
 
@@ -157,7 +154,7 @@ public class LabListStepdefinitions {
 
     @When("^Click on \"([^\"]*)\" Up arrow icon on any column$")
     public void click_on_Up_arrow_icon_on_any_column(String arg1) throws Throwable {
-        loginpage.waittime();
+        loginpage.waitTime(1500);
         lablist.SortingColumns();
 
     }
@@ -187,17 +184,10 @@ public class LabListStepdefinitions {
         String info = driver.findElement(By.xpath(".//*[@id='maincontentdiv']/div[6]/div/div/div/div[1]/span")).getText();
 
 		   /*String Labinfo = connector.getWebElement(driver, WebConnector.Identifier.xpath, 
-					connector.getstring(WebConnector.myUrl.URL_OR,"LabName_Validation")).getText();
+					connector.getString(WebConnector.myUrl.URL_OR,"LabName_Validation")).getText();
 			Assert.assertEquals("User List", Labinfo);*/
+        driver.close();
         System.out.println(info);
-
-
     }
-
-    @After
-    public void closePage() {
-		driver.close();
-    }
-
 }
 

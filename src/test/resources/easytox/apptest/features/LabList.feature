@@ -1,8 +1,6 @@
 @Specific
 Feature: Verifying the Lab List
-
-
-Background: 
+Background:
  Given the easytox url
 	And I enter username as "username"
 	And I enter password as "password"
