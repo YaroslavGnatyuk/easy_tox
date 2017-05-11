@@ -22,4 +22,14 @@ public class CaseListPage extends AbstractPage{
         Thread.sleep(2000);
         connector.getWebElement(driver, WebConnector.Identifier.linktext,connector.getString(WebConnector.myUrl.URL_OR,"drugLibraryText")).click();
     }
+
+    public void clickOnCompoundTestGroup() throws InterruptedException {
+        Thread.sleep(2000);
+        connector.getWebElement(driver, WebConnector.Identifier.linktext,connector.getString(WebConnector.myUrl.URL_OR, "compoundTestGroup")).click();
+    }
+
+    public void clickOnValidityTestGroup() throws InterruptedException {
+        Thread.sleep(2000);
+        connector.getWebElement(driver, WebConnector.Identifier.linktext,connector.getString(WebConnector.myUrl.URL_OR, "validityTestGroupIcon")).click();
+    }
 }

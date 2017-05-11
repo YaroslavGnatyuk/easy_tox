@@ -62,7 +62,7 @@ public class DrugListPage extends AbstractPage {
         connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "submitFormButton")).click();
     }
 
-    public boolean checkMerssageAfterCreatingDrug(String drug) throws Throwable {
+    public boolean checkMessageAfterCreatingDrug(String drug) throws Throwable {
         waitTime(2000);
 
         final String message = connector

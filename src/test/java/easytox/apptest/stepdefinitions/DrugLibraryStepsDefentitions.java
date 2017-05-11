@@ -4,10 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import easytox.apptest.pages.CaseListPage;
-import easytox.apptest.pages.CompoundListPage;
-import easytox.apptest.pages.DrugListPage;
-import easytox.apptest.pages.LoginPage;
+import easytox.apptest.pages.*;
 import easytox.apptest.utils.WebConnector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DrugLibraryStepsDefentitions {
@@ -25,6 +23,8 @@ public class DrugLibraryStepsDefentitions {
     CaseListPage caseList = null;
     CompoundListPage compoundListPage;
     DrugListPage drugListPage;
+    CompoundTestGroupPage compoundTestGroupPage;
+    ValidityTestGroupPage validityTestGroupPage;
 
     @Given("^the easytox url for drug library$")
     public void theEasyToxUrl() {
@@ -35,6 +35,9 @@ public class DrugLibraryStepsDefentitions {
         caseList = new CaseListPage(driver);
         compoundListPage = new CompoundListPage(driver);
         drugListPage = new DrugListPage(driver);
+        compoundTestGroupPage = new CompoundTestGroupPage(driver);
+        validityTestGroupPage = new ValidityTestGroupPage(driver);
+
     }
 
     @And("^I enter username as \"([^\"]*)\" for drug library$")
@@ -63,7 +66,7 @@ public class DrugLibraryStepsDefentitions {
     }
 
     @Then("^Compound page should be open for drug library scenario 1$")
-    public void compoundPageShouldBeOpen(){
+    public void compoundPageShouldBeOpen() {
         assertTrue(compoundListPage.getCurrentUrl().equals(CompoundListPage.URL_SHOULD_BE));
     }
 
@@ -106,7 +109,7 @@ public class DrugLibraryStepsDefentitions {
     }
 
     @Then("^Compound page should be open for drug library scenario 2$")
-    public void compoundPageShouldBeOpenVCompound(){
+    public void compoundPageShouldBeOpenVCompound() {
         assertTrue(compoundListPage.getCurrentUrl().equals(CompoundListPage.URL_SHOULD_BE));
     }
 
@@ -149,7 +152,7 @@ public class DrugLibraryStepsDefentitions {
     }
 
     @Then("^Drug page should be open 'for drug library scenario 3'$")
-    public void checkDrugLibraryPage(){
+    public void checkDrugLibraryPage() {
         String urlShouldBe = DrugListPage.URL_SHOULD_BE;
         assertTrue(urlShouldBe.equals(driver.getCurrentUrl()));
     }
@@ -187,6 +190,9 @@ public class DrugLibraryStepsDefentitions {
         driver.close();
     }
 
+    /**
+     * Scenario 4,5
+     **/
     @When("^Go to Libraries -> Drug Library 'for drug library scenario 4'$")
     public void goToDrugLibrary() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -195,8 +201,8 @@ public class DrugLibraryStepsDefentitions {
 
     @Then("^Drug' page should be open 'for drug library scenario 4'$")
     public void checkDrugLibrary() throws Throwable {
-        caseList.clickOnLibraryIcon();
-        caseList.clickOnDrugLibraryIcon();
+        String urlShouldBe = DrugListPage.URL_SHOULD_BE;
+        assertTrue(urlShouldBe.equals(driver.getCurrentUrl()));
     }
 
     @When("^Click 'Add Drug' icon 'for drug library scenario 4'.$")
@@ -210,7 +216,7 @@ public class DrugLibraryStepsDefentitions {
     }
 
     @When("^Enter 'Name' as \"([^\"]*)\", Select \"([^\"]*)\" from the drop down and enter all the other data and click Submit 'for drug library scenario 4'.$")
-    public void createNewDrug(String name, String value){
+    public void createNewDrug(String name, String value) {
         drugListPage.inputName(name);
         drugListPage.selectAccessionPrefix();
         drugListPage.selectCompound(value);
@@ -219,6 +225,193 @@ public class DrugLibraryStepsDefentitions {
 
     @Then("^A new Drug \"([^\"]*)\" should be created successfully 'for drug library scenario 4'.$")
     public void newDrugCreatedSuccessfully(String drug) throws Throwable {
-        drugListPage.checkMerssageAfterCreatingDrug(drug);
+        drugListPage.checkMessageAfterCreatingDrug(drug);
+    }
+
+    /**
+     * Scenario 6
+     **/
+    @When("^Go to Libraries -> Compound Test Group 'for drug library scenario 5'$")
+    public void goToCompoundTestGroup() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnCompoundTestGroup();
+    }
+
+    @Then("^Test Code' page should be open 'for drug library scenario 5'$")
+    public void checkIsThatCompoundTestGroupPage() {
+        final String urlShouldBe = CompoundTestGroupPage.URL_SHOULD_BE;
+        assertTrue(urlShouldBe.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Test Code' icon 'for drug library scenario 5'.$")
+    public void clickOnAddTestCode() throws Throwable {
+        compoundTestGroupPage.clickOnAddTestCodeIcon();
+    }
+
+    @Then("^Add Test Code screen should be displayed 'for drug library scenario 5'.$")
+    public void isWindowAddTestCodeShowed() throws Throwable {
+        assertTrue(compoundTestGroupPage.isAddTestCodeWindowShowed());
+    }
+
+    @When("^Verify the values displayed in 'Compounds' drop down 'for drug library scenario 5'.$")
+    public void verifyTheValuesInCompounds() {
+        compoundTestGroupPage.clickOnCompounds();
+    }
+
+    @Then("^Following values should be displayed in 'Compounds' dropdown: \"([^\"]*)\" and \"([^\"]*)\" 'for drug library scenario 5'$")
+    public void compareValuesThatWeShouldHave(String compound1, String compound2) {
+        boolean isContainValidValues = compoundTestGroupPage.isCompoundsContainValidValues(compound1, compound2);
+        assertTrue(isContainValidValues);
+    }
+
+    @When("Verify the values NOT displayed in 'Compounds' drop down 'for drug library scenario 5'.")
+    public void verifyTheValuesNotDisplayedInCompound() {
+        compoundTestGroupPage.clickOnCompounds();
+    }
+
+    @Then("^Following values should NOT be displayed in 'Compounds' dropdown: \"([^\"]*)\" and \"([^\"]*)\" 'for drug library scenario 5'$")
+    public void compareValuesThatWeShouldNotHave(String vcompound1, String vcompound2) {
+        boolean isContainInvalidValues = compoundTestGroupPage.isCompoundsContainValidValues(vcompound1, vcompound2);
+        assertFalse(isContainInvalidValues);
+    }
+
+    /**
+     * Scenario 7
+     **/
+    @When("^Go to Libraries -> Compound Test Group 'for drug library scenario 6'$")
+    public void goToCompoundTestGroupPage() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnCompoundTestGroup();
+    }
+
+    @Then("^Test Code' page should be open 'for drug library scenario 6'$")
+    public void compoundTestGroupPageShouldBeOpened() {
+        final String urlShouldBe = CompoundTestGroupPage.URL_SHOULD_BE;
+        assertTrue(urlShouldBe.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Test Code' icon 'for drug library scenario 6'.$")
+    public void clickAddTestGroupCodeAgain() throws Throwable {
+        compoundTestGroupPage.clickOnAddTestCodeIcon();
+    }
+
+    @Then("^Add Test Code screen should be displayed 'for drug library scenario 6'.$")
+    public void addTestGroupCodeWindowShouldBeOpened() throws Throwable {
+        assertTrue(compoundTestGroupPage.isAddTestCodeWindowShowed());
+    }
+
+    @When("^Enter 'Test Code' as \"([^\"]*)\" 'for drug library scenario 6',$")
+    public void inputTestCode(String testCode) {
+        compoundTestGroupPage.inputTestCode(testCode);
+    }
+
+    @And("^Select \"([^\"]*)\" and \"([^\"]*)\" from the Compounds drop down and 'for drug library scenario 6'$")
+    public void selectCompoundValues(String value1, String value2) throws Throwable {
+        compoundTestGroupPage.selectCompounds(value1, value2);
+    }
+
+    @And("^enter all the other data and click Submit 'for drug library scenario 6'.$")
+    public void inputAllOtherNeededData() {
+        compoundTestGroupPage.inputDescription();
+        compoundTestGroupPage.clickOnSubmit();
+    }
+
+    @Then("^A new Compound \"([^\"]*)\" should be created successfully 'for drug library scenario 6'.$")
+    public void checkTheResultOfCreationNewTestGroupCode(String newTestGroupCode) throws Throwable {
+        assertTrue(compoundTestGroupPage.checkMessageAfterCreatingTestGroupCode(newTestGroupCode));
+    }
+
+    /**
+     * Scenario 8
+     **/
+
+    @When("^Go to Libraries -> Validity Test Group 'for drug library scenario 7'$")
+    public void gotToValidityTestGroup() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnValidityTestGroup();
+    }
+
+    @Then("^Validity Test Code page should be open 'for drug library scenario 7'$")
+    public void checkCurrentPage() {
+        assertTrue(ValidityTestGroupPage.URL_SHOULD_BE.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Validity Test Code' icon 'for drug library scenario 7'.$")
+    public void clickOnAddValidityTestCodeIcon() throws Throwable {
+        validityTestGroupPage.clickOnAddValidityGroup();
+    }
+
+    @Then("^Add Validity Test Code screen should be displayed 'for drug library scenario 7'.$")
+    public void modalWindowAddTestCodeShouldBeShowed() throws Throwable {
+        assertTrue(validityTestGroupPage.isAddValidityGroupWindowShowed());
+    }
+
+    @When("^Verify the values displayed in 'Compounds' drop down 'for drug library scenario 7'.$")
+    public void checkValuesInCompound() throws Throwable {
+        validityTestGroupPage.clickOnSelectCompound();
+    }
+
+    @Then("^Following values should be displayed in 'Compounds' dropdown: \"([^\"]*)\" and \"([^\"]*)\" 'for drug library scenario 7'$")
+    public void checkValuesThatShouldBeDisplayed(String value1, String value2) throws Throwable {
+        boolean isPresent = validityTestGroupPage.checkValuesThatPresentInCompound(value1, value2);
+        assertTrue(isPresent);
+    }
+
+    @When("^Verify the values NOT displayed in 'Compounds' drop down 'for drug library scenario 7'.$")
+    public void verifyValuesInCompound() throws Throwable {
+        validityTestGroupPage.clickOnSelectCompound();
+    }
+
+    @Then("Following values should NOT be displayed in 'Compounds' dropdown: \"([^\"]*)\" and \"([^\"]*)\" 'for drug library scenario 7'")
+    public void checkValuesThatShouldNotBeDisplayed(String value1, String value2) throws Throwable {
+        boolean isNotPresent = validityTestGroupPage.checkValuesThatPresentInCompound(value1, value2);
+        assertFalse(isNotPresent);
+    }
+
+    /**
+     * Scenario 8
+     **/
+    @When("^Go to Libraries -> Validity Test Group 'for drug library scenario 8'$")
+    public void goToValidityTestGroup() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnValidityTestGroup();
+    }
+
+    @Then("^Validity Test Code' page should be open 'for drug library scenario 8'$")
+    public void currentPageShouldBeValidityTestCode() {
+        assertTrue(ValidityTestGroupPage.URL_SHOULD_BE.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Validity Test Code' icon 'for drug library scenario 8'.$")
+    public void clickOnAddValidityTestGroup() throws Throwable {
+        validityTestGroupPage.clickOnAddValidityGroup();
+    }
+
+    @Then("^Add Validity Test Code screen should be displayed 'for drug library scenario 8'.$")
+    public void addValidityTestCodeWindowShouldBeShowed() throws Throwable {
+        assertTrue(validityTestGroupPage.isAddValidityGroupWindowShowed());
+    }
+
+    @When("^Enter 'ValidityTest Code' as \"([^\"]*)\" 'for drug library scenario 8',$")
+    public void inputValidityTestCode(String testCode) {
+        validityTestGroupPage.inputTestCode(testCode);
+    }
+
+    @And("^Select \"([^\"]*)\" and \"([^\"]*)\" from the Compounds drop down and 'for drug library scenario 8'$")
+    public void selectCompounds(String value1, String value2) {
+        validityTestGroupPage.chooseCompounds(value1, value2);
+    }
+
+    @And("enter all the other data and click Submit 'for drug library scenario 8'.")
+    public void enterOtherData() {
+        final String description = "description";
+        validityTestGroupPage.inputDescription(description);
+    }
+
+    @Then("^A new Compound \"([^\"]*)\" should be created successfully 'for drug library scenario 8'.$")
+    public void newCompoundShouldBeCreated(String newCompound) throws Throwable {
+        validityTestGroupPage.submitNewValidityTestCode();
+        validityTestGroupPage.checkMessage(newCompound);
+        driver.close();
     }
 }
