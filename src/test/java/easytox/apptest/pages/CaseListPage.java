@@ -32,4 +32,9 @@ public class CaseListPage extends AbstractPage{
         Thread.sleep(2000);
         connector.getWebElement(driver, WebConnector.Identifier.linktext,connector.getString(WebConnector.myUrl.URL_OR, "validityTestGroupIcon")).click();
     }
+
+    public void clickOnTestingProfile() throws InterruptedException {
+        Thread.sleep(2000);
+        connector.getWebElement(driver, WebConnector.Identifier.linktext,connector.getString(WebConnector.myUrl.URL_OR, "testingProfileIcon")).click();
+    }
 }

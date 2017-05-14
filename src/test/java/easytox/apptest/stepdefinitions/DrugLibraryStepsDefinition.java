@@ -16,15 +16,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DrugLibraryStepsDefentitions {
+public class DrugLibraryStepsDefinition {
     WebDriver driver = null;
     LoginPage loginpage;
     WebConnector connector = new WebConnector();
-    CaseListPage caseList = null;
+    CaseListPage caseList;
     CompoundListPage compoundListPage;
     DrugListPage drugListPage;
     CompoundTestGroupPage compoundTestGroupPage;
     ValidityTestGroupPage validityTestGroupPage;
+    TestingProfilePage testingProfilePage;
 
     @Given("^the easytox url for drug library$")
     public void theEasyToxUrl() {
@@ -37,7 +38,7 @@ public class DrugLibraryStepsDefentitions {
         drugListPage = new DrugListPage(driver);
         compoundTestGroupPage = new CompoundTestGroupPage(driver);
         validityTestGroupPage = new ValidityTestGroupPage(driver);
-
+        testingProfilePage = new TestingProfilePage(driver);
     }
 
     @And("^I enter username as \"([^\"]*)\" for drug library$")
@@ -58,6 +59,10 @@ public class DrugLibraryStepsDefentitions {
         loginpage.Loginbuttonclick();
 
     }
+
+    /**
+     * Scenario 1 Create a Compound with Type as 'Test Screen'
+     **/
 
     @When("^Go to Libraries -> Compound Library for drug library scenario 1$")
     public void gotToCompoundLibrary() throws Throwable {
@@ -102,6 +107,10 @@ public class DrugLibraryStepsDefentitions {
         driver.close();
     }
 
+    /**
+     * Scenario 2 Create a Compound with Type as 'Validity Testing'
+     **/
+
     @When("^Go to Libraries -> Compound Library for drug library scenario 2$")
     public void gotToCompoundLibraryVCompound() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -145,6 +154,9 @@ public class DrugLibraryStepsDefentitions {
         driver.close();
     }
 
+    /**
+     * Scenario 3 While creating a Drug, verify that the Compounds List doesn’t contain Validity Testing Compunds
+     **/
     @When("^Go to Libraries -> Drug Library 'for drug library scenario 3'$")
     public void goToDrugLibraryPage() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -191,8 +203,9 @@ public class DrugLibraryStepsDefentitions {
     }
 
     /**
-     * Scenario 4,5
+     * Scenario 4,5 Create a Drug 'Drug'
      **/
+
     @When("^Go to Libraries -> Drug Library 'for drug library scenario 4'$")
     public void goToDrugLibrary() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -226,11 +239,13 @@ public class DrugLibraryStepsDefentitions {
     @Then("^A new Drug \"([^\"]*)\" should be created successfully 'for drug library scenario 4'.$")
     public void newDrugCreatedSuccessfully(String drug) throws Throwable {
         drugListPage.checkMessageAfterCreatingDrug(drug);
+        driver.close();
     }
 
     /**
-     * Scenario 6
+     * Scenario 5 Validating Compound Test Group
      **/
+
     @When("^Go to Libraries -> Compound Test Group 'for drug library scenario 5'$")
     public void goToCompoundTestGroup() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -273,11 +288,13 @@ public class DrugLibraryStepsDefentitions {
     public void compareValuesThatWeShouldNotHave(String vcompound1, String vcompound2) {
         boolean isContainInvalidValues = compoundTestGroupPage.isCompoundsContainValidValues(vcompound1, vcompound2);
         assertFalse(isContainInvalidValues);
+        driver.close();
     }
 
     /**
-     * Scenario 7
+     * Scenario 6 Create a Compound Test Group
      **/
+
     @When("^Go to Libraries -> Compound Test Group 'for drug library scenario 6'$")
     public void goToCompoundTestGroupPage() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -319,10 +336,11 @@ public class DrugLibraryStepsDefentitions {
     @Then("^A new Compound \"([^\"]*)\" should be created successfully 'for drug library scenario 6'.$")
     public void checkTheResultOfCreationNewTestGroupCode(String newTestGroupCode) throws Throwable {
         assertTrue(compoundTestGroupPage.checkMessageAfterCreatingTestGroupCode(newTestGroupCode));
+        driver.close();
     }
 
     /**
-     * Scenario 8
+     * Scenario 7 Validating ValidityTest Group
      **/
 
     @When("^Go to Libraries -> Validity Test Group 'for drug library scenario 7'$")
@@ -366,11 +384,13 @@ public class DrugLibraryStepsDefentitions {
     public void checkValuesThatShouldNotBeDisplayed(String value1, String value2) throws Throwable {
         boolean isNotPresent = validityTestGroupPage.checkValuesThatPresentInCompound(value1, value2);
         assertFalse(isNotPresent);
+        driver.close();
     }
 
     /**
-     * Scenario 8
+     * Scenario 8 Create a Validity Test Group
      **/
+
     @When("^Go to Libraries -> Validity Test Group 'for drug library scenario 8'$")
     public void goToValidityTestGroup() throws Throwable {
         caseList.clickOnLibraryIcon();
@@ -412,6 +432,143 @@ public class DrugLibraryStepsDefentitions {
     public void newCompoundShouldBeCreated(String newCompound) throws Throwable {
         validityTestGroupPage.submitNewValidityTestCode();
         validityTestGroupPage.checkMessage(newCompound);
+        driver.close();
+    }
+
+    /**
+     * Scenario 9 Validating Testing Profile
+     **/
+
+    @When("^Go to Libraries -> Testing Profile 'for drug library scenario 9'$")
+    public void goToTestingProfilePage() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnTestingProfile();
+    }
+
+    @Then("^Profile page should be open 'for drug library scenario 9'$")
+    public void checkProfilePage() throws Throwable {
+        caseList.waitTime(2000);
+        assertTrue(TestingProfilePage.URL_SHOULD_BE.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Profile' icon 'for drug library scenario 9'.$")
+    public void clickOnAddProfile() throws Throwable {
+        testingProfilePage.clickAddTestingButton();
+    }
+
+    @Then("^Add Profile screen should be displayed 'for drug library scenario 9'.$")
+    public void isAddProfileScreenShowed() throws Throwable {
+        assertTrue(testingProfilePage.isAddProfileWindowShowed());
+    }
+
+    @When("^Verify the values displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.$")
+    public void verifyValuesShouldBeInTestScreenGroup() {
+        testingProfilePage.clickOnTestScreenGroupField();
+    }
+
+    @Then("^Following values should be displayed in 'TestScreen Group' dropdown: \"([^\"]*)\" 'for drug library scenario 9'$")
+    public void checkValueShouldBeInDropdown(String value) throws Throwable {
+        testingProfilePage.inputValueForSearchingTestScreenGroup(value);
+        String resultOfSearching = testingProfilePage.getResultOfSearchingTestScreenGroup();
+
+        assertTrue(resultOfSearching.equals(value));
+    }
+
+    @When("^Verify the values NOT displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.$")
+    public void verifyValuesShouldNotBeInTestScreenGroup() {
+        testingProfilePage.clearFieldSearchingTestScreenGroup();
+    }
+
+    @Then("^Following values should NOT be displayed in 'TestScreen Group' dropdown: \"([^\"]*)\" 'for drug library scenario 9'$")
+    public void checkValueShouldNotBeInDropdown(String value) throws Throwable {
+        testingProfilePage.inputValueForSearchingTestScreenGroup(value);
+        String resultOfSearching = testingProfilePage.getResultOfSearchingTestScreenGroup();
+        testingProfilePage.clickOnTestScreenGroupField();
+        assertFalse(resultOfSearching.equals(value));
+    }
+
+    @When("^Verify the values displayed in 'Validity Test Group' drop down 'for drug library scenario 9'.$")
+    public void verifyValueShouldBeInValidityTestGroup() throws Throwable {
+        testingProfilePage.clickOnValidityTestGroupField();
+    }
+
+    @Then("^Following values should be displayed in 'Validity Test  Group' dropdown: \"([^\"]*)\" 'for drug library scenario 9'$")
+    public void checkValueShouldBeInValidityTestGroup(String value) throws Throwable {
+        testingProfilePage.inputValueForSearchingValidityTestGroup(value);
+        String resultOfSearching = testingProfilePage.getResultOfSearchingValidityTestGroup();
+
+        assertTrue(resultOfSearching.equals(value));
+    }
+
+    @When("^Verify the values NOT displayed in 'Validity Test  Group' drop down 'for drug library scenario 9'.$")
+    public void verifyValueShouldNotBeInValidityTestGroup() throws Throwable {
+        testingProfilePage.clearFieldSearchingValidityTestGroup();
+    }
+
+    @Then("^Following values should NOT be displayed in 'Validity TestScreen Group' dropdown: \"([^\"]*)\" 'for drug library scenario 9'$")
+    public void checkValueShouldNotBeInValidityTestGroup(String value) throws Throwable {
+        testingProfilePage.inputValueForSearchingValidityTestGroup(value);
+        String resultOfSearching = testingProfilePage.getResultOfSearchingValidityTestGroup();
+
+        assertFalse(resultOfSearching.equals(value));
+        driver.close();
+    }
+
+    /**
+     * Scenario 10 Create a Testing Profile
+     **/
+
+    @When("^Go to Libraries -> Testing Profile for drug library scenario 10'$")
+    public void goToTestingProfile() throws Throwable {
+        caseList.clickOnLibraryIcon();
+        caseList.clickOnTestingProfile();
+    }
+
+    @Then("^Profile' page should be open for drug library scenario 10'$")
+    public void checkTestingProfilePage() {
+        assertTrue(TestingProfilePage.URL_SHOULD_BE.equals(driver.getCurrentUrl()));
+    }
+
+    @When("^Click 'Add Profile' icon for drug library scenario 10'.$")
+    public void clickAddProfile() throws Throwable {
+        testingProfilePage.clickAddTestingButton();
+    }
+
+    @Then("^Add Profile screen should be displayed for drug library scenario 10'.$")
+    public void checkAddProfileWindow() throws Throwable {
+        assertTrue(testingProfilePage.isAddProfileWindowShowed());
+    }
+
+    @When("^Enter 'Name' as \"([^\"]*)\" for drug library scenario 10'$")
+    public void inputName(String name) {
+        testingProfilePage.inputName(name);
+    }
+
+    @And("^'Test Screen Group' as \"([^\"]*)\" for drug library scenario 10',$")
+    public void chooseTestGroup(String testGroup) throws Throwable {
+        testingProfilePage.clickOnTestScreenGroupField();
+        testingProfilePage.inputValueForSearchingTestScreenGroup(testGroup);
+        testingProfilePage.selectResultOfSearchTestScreenGroup();
+        testingProfilePage.clickOnTestScreenGroupField();
+
+    }
+
+    @And("^'Validity Test Group' as \"([^\"]*)\" for drug library scenario 10',$")
+    public void chooseValidityGroup(String validityTestGroup) throws Throwable {
+        testingProfilePage.clickOnValidityTestGroupField();
+        testingProfilePage.inputValueForSearchingValidityTestGroup(validityTestGroup);
+        testingProfilePage.selectResultOfSearchValidityTestGroup();
+        testingProfilePage.clickOnValidityTestGroupField();
+    }
+
+    @And("^click Submit for drug library scenario 10'.$")
+    public void clickSubmit() {
+        testingProfilePage.clickSubmitButton();
+    }
+
+    @Then("^A new Test Profile \"([^\"]*)\" should be created successfully for drug library scenario 10'.$")
+    public void checkResultOfCreationNewTestProfile(String testingProfileName) throws Throwable {
+        testingProfilePage.checkMessageAfterCreatingTestingProfile(testingProfileName);
         driver.close();
     }
 }
