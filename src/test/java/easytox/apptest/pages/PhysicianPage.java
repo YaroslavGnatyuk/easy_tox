@@ -14,4 +14,10 @@ public class PhysicianPage extends AbstractPage{
     public PhysicianPage(WebDriver driver) {
         super(driver);
     }
+
+    public void clickOnAddPhysician() throws Throwable {
+        waitTime(1000);
+        connector.getWebElement(driver, WebConnector.Identifier.xpath, webConnector.getString(WebConnector.myUrl.URL_OR, "addPhysicianIcon")).click();
+        waitTime(1000);
+    }
 }
