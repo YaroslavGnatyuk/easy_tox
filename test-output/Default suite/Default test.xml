@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite hostname="DESKTOP-TULJCQG" name="easytox.apptest.utils.ReadPropFile" tests="1" failures="0" timestamp="5 Apr 2017 16:07:59 GMT" time="0.101" errors="0">
-  <testcase name="readprop" time="0.046" classname="easytox.apptest.utils.ReadPropFile"/>
-</testsuite>
