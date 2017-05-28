@@ -76,39 +76,57 @@ Feature: Audit and User log
 #    Then "SPhyOne" should be added to the LabClient list 'for audit and user log 5'.
 
   #Scenario 6 Verify Audit Log
-  Scenario: Verify Audit Log
-    When Login with "newLabAdminUsername" and "newLabAdminPassword" credentials 'for audit and user log 6'.
-    Then Case List screen should be displayed 'for audit and user log 6'.
+#  Scenario: Verify Audit Log
+#    When Login with "newLabAdminUsername" and "newLabAdminPassword" credentials 'for audit and user log 6'.
+#    Then Case List screen should be displayed 'for audit and user log 6'.
+#
+#    When Select Libraries -> Audit Log 'for audit and user log 6'
+#    Then Audit Log Screen should be displayed 'for audit and user log 6'.
+#
+#    When Verify the values in "Lab Client" drop down 'for audit and user log 6'.
+#    Then "SLabClientOne" and "SLabCLientTwo" values should be displayed 'for audit and user log 6'.
+#
+#    When Verify for other values in "lab Client" drop down 'for audit and user log 6'.
+#    Then No other values should be displayed in the Lab Client drop down only "SLabClientOne" and "SLabCLientTwo" 'for audit and user log 6'.
+#
+#    When Verify the values in "User" drop down 'for audit and user log 6'.
+#    Then "SNLabadmin", "SPhyOne", "SPhyTwo", "labuserone" values should be displayed in the User drop down 'for audit and user log 6'.
+#
+#    When Verify for other values in "User" drop down 'for audit and user log 6'.
+#    Then No other values should be displayed in the User drop down only "SNLabadmin", "SPhyOne", "SPhyTwo", "labuserone" 'for audit and user log 6'.
+#
+#    When Verify the columns displayed in the Audit Log 'for audit and user log 6'.
+#    Then Following columns should be displayed in Audit Log: "Modified By","Lab","Lab Client", "Date/Time","Table Name","Column Name","Old Value","New Value","Event Type" 'for audit and user log 6'
+#
+#    When Verify the values under "Modified By" column 'for audit and user log 6'.
+#    Then Only either of the following values should be displayed under "Modified By" column: "Snlabadmin", "SPhyOne", "SPhyTwo", "labuserone".No other values other than above four should be displayed under "Modified By" column 'for audit and user log 6'.
+#
+#    When Verify the values under "Lab" column 'for audit and user log 6'.
+#    Then Value under "Lab" column should be "Sujana Lab" always 'for audit and user log 6'.
+#
+#    When Verify the values under "Lab Client" column 'for audit and user log 6'.
+#    Then Value under "Lab Client" column should be "SLabClientOne" or "SLabClientTwo" only. No other values should be displayed 'for audit and user log 6'.
+#
+#    When Verify the values under "Date/Time" column 'for audit and user log 6'.
+#    Then Date and Time of the individual events in the formats "DD/MMM/YYYY" and "HH:MM:SS" respectively should be displayed 'for audit and user log 6'.
 
-    When Select Libraries -> Audit Log 'for audit and user log 6'
-    Then Audit Log Screen should be displayed 'for audit and user log 6'.
+#  Scenario 7
+  Scenario: Verify Audit Log filter 'for audit and user log 7'
+    When Select a value from "Lab Client" drop down and clcik Search 'for audit and user log 7'.
+    Then Results corresponding to selected Lab Client should be displayed 'for audit and user log 7'.
 
-    When Verify the values in "Lab Client" drop down 'for audit and user log 6'.
-    Then "SLabClientOne" and "SLabCLientTwo" values should be displayed 'for audit and user log 6'.
+    When Select a value from "User" drop down and click Search 'for audit and user log 7'.
+    Then Results corresponding to selected User should be displayed 'for audit and user log 7'.
 
-    When Verify for other values in "lab Client" drop down 'for audit and user log 6'.
-    Then No other values should be displayed in the Lab Client drop down only "SLabClientOne" and "SLabCLientTwo" 'for audit and user log 6'.
+    When Select From and To Dates in the Date Range and click Search 'for audit and user log 7'.
+    Then Only records between the selected date range should be displayed 'for audit and user log 7'.
 
-    When Verify the values in "User" drop down 'for audit and user log 6'.
-    Then "SNLabadmin", "SPhyOne", "SPhyTwo", "labuserone" values should be displayed in the User drop down 'for audit and user log 6'.
+    When Enter a value in "Table Name" field and click Search 'for audit and user log 7'.
+    Then All the records with entered Table Name should be displayed 'for audit and user log 7'.
 
-    When Verify for other values in "User" drop down 'for audit and user log 6'.
-    Then No other values should be displayed in the User drop down only "SNLabadmin", "SPhyOne", "SPhyTwo", "labuserone" 'for audit and user log 6'.
+    When Select an Event Type from the drop down and click Search 'for audit and user log 7'.
+    Then ll the records matchin selected "Event Type" should be displayed 'for audit and user log 7'.
 
-    When Verify the columns displayed in the Audit Log 'for audit and user log 6'.
-    Then Following columns should be displayed in Audit Log: "Modified By","Lab","Lab Client", "Date/Time","Table Name","Column Name","Old Value","New Value","Event Type" 'for audit and user log 6'
+    When Select values from two or more filters and click Search 'for audit and user log 7'.
+    Then Records as per the entered search criteria should be displayed 'for audit and user log 7'.
 
-    When Verify the values under "Modified By" column 'for audit and user log 6'.
-    Then Only either of the following values should be displayed under "Modified By" column: "SNLabadmin", "SPhyOne", "SPhyTwo", "labuserone".No other values other than above four should be displayed under "Modified By" column 'for audit and user log 6'.
-
-    When Verify the values under "Lab" column 'for audit and user log 6'.
-    Then Value under "Lab" column should be "Sujana Lab" always 'for audit and user log 6'.
-
-    When Verify the values under "Lab Client" column 'for audit and user log 6'.
-    Then Value under "Lab Client" column should be "SLabClientOne" or "SLabClientTwo" only. No other values should be displayed 'for audit and user log 6'.
-
-    When Verify the values under "Date/Time" column 'for audit and user log 6'.
-    Then Date and Time of the individual events in the formats "DD/MMM/YYYY" and "HH:MM:SS" respectively should be displayed 'for audit and user log 6'.
-
-#    When Verify the values in other columns 'for audit and user log 6'.
-#    Then Respective table updates should be displayed appropriately for each event 'for audit and user log 6'.

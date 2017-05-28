@@ -7,12 +7,16 @@ import easytox.apptest.pages.*;
 import easytox.apptest.utils.AmountOfRecordsInTable;
 import easytox.apptest.utils.WebConnector;
 import edu.emory.mathcs.backport.java.util.Arrays;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,6 +36,7 @@ public class AuditAndUserLogStepsDefinition {
     private AddPhysicianPage addPhysicianPage;
     private AuditLogPage auditLogPage;
 
+    private Logger log = Logger.getLogger(AuditAndUserLogStepsDefinition.class.getName());
 
     public void theEasyToxUrl() {
         System.setProperty("webdriver.chrome.driver", "src//test//java//easytox//apptest//driver//chromedriver.exe");
@@ -70,7 +75,7 @@ public class AuditAndUserLogStepsDefinition {
      **/
 
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 1'$")
-    public void loginToEasyTox_1(String username, String password){
+    public void loginToEasyTox_1(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -78,7 +83,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Lab List screen should be displayed 'for audit and user log 1'.$")
-    public void checkCurrentPage(){
+    public void checkCurrentPage() {
         String urlShouldBe = LabListPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
@@ -115,7 +120,7 @@ public class AuditAndUserLogStepsDefinition {
      * Scenario 2 Create Lab Admin
      **/
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 2'$")
-    public void loginToEasyTox_2(String username, String password){
+    public void loginToEasyTox_2(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -123,7 +128,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Lab List screen should be displayed 'for audit and user log 2'.$")
-    public void currentPageShouldBe_2(){
+    public void currentPageShouldBe_2() {
         String urlShouldBe = LabListPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
@@ -183,7 +188,7 @@ public class AuditAndUserLogStepsDefinition {
      **/
 
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 3'.$")
-    public void loginToEasyTox_3(String username, String password){
+    public void loginToEasyTox_3(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -191,7 +196,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Case List screen should be displayed 'for audit and user log 3'.$")
-    public void checkCurrentPage_3(){
+    public void checkCurrentPage_3() {
         final String urlShouldBe = LabPaymentPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
@@ -203,7 +208,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^User List screen should be displayed 'for audit and user log 3'.$")
-    public void shouldBeUsersListPage(){
+    public void shouldBeUsersListPage() {
         final String urlShouldBe = LabUsersListPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
@@ -214,7 +219,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Add a Lab User screen should be displayed 'for audit and user log 3'.$")
-    public void addLabUsersPageShouldBe(){
+    public void addLabUsersPageShouldBe() {
         final String urlShouldBe = AddLabUserPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
@@ -230,7 +235,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @And("^click Submit 'for audit and user log 3'.$")
-    public void clickAddUser(){
+    public void clickAddUser() {
         addLabUserPage.clickAddUserButton();
     }
 
@@ -245,7 +250,7 @@ public class AuditAndUserLogStepsDefinition {
      **/
 
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 4'.$")
-    public void loginToEasyTox_4(String username, String password){
+    public void loginToEasyTox_4(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -253,47 +258,48 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Case List screen should be displayed 'for audit and user log 4'.$")
-    public void checkCurrentPage_4(){
+    public void checkCurrentPage_4() {
         final String urlShouldBe = LabPaymentPage.URL;
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
 
     @When("^Select Libraries -> Lab Client 'for audit and user log 4'.$")
-    public void selectLabClient(){
+    public void selectLabClient() {
 
     }
+
     @Then("^LabClient List screen should be displayed 'for audit and user log 4'.$")
-    public void labClientListShouldBeDisplayed(){
+    public void labClientListShouldBeDisplayed() {
 
     }
 
     @When("^Click on 'plus' icon beside Search box 'for audit and user log 4'.$")
-    public void clickOnPlusIcon(){
+    public void clickOnPlusIcon() {
 
     }
 
     @Then("^Add Lab Client screen should be displayed 'for audit and user log 4'.$")
-    public void addLabClientPageShouldBeDisplayed(){
+    public void addLabClientPageShouldBeDisplayed() {
 
     }
 
     @When("^Enter username and password as \"([^\"]*)\" and \"([^\"]*)\" 'for audit and user log 4'$")
-    public void inputUsernameAndPassword_4(String username, String password){
+    public void inputUsernameAndPassword_4(String username, String password) {
 
     }
 
     @And("^Enter all the other required information 'for audit and user log 4'$")
-    public void inputAllOtherData(){
+    public void inputAllOtherData() {
 
     }
 
     @And("^Click Submit 'for audit and user log 4'.$")
-    public void clickOnSubmitAddLabClientButton(){
+    public void clickOnSubmitAddLabClientButton() {
 
     }
 
     @Then("^\"([^\"]*)\" should be added to the LabClient list 'for audit and user log 4'.$")
-    public void checkResult(String labClient){
+    public void checkResult(String labClient) {
 
     }
 
@@ -302,7 +308,7 @@ public class AuditAndUserLogStepsDefinition {
      **/
 
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 5'.$")
-    public void loginToEasyTox_5(String username, String password){
+    public void loginToEasyTox_5(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -321,8 +327,9 @@ public class AuditAndUserLogStepsDefinition {
         labPaymentPage.clickOnSettingIcon();
         labPaymentPage.clickOnPhysicianInc();
     }
+
     @Then("^Physician List screen should be displayed 'for audit and user log 5'.$")
-    public void labPhysicianListShouldBeDisplayed(){
+    public void labPhysicianListShouldBeDisplayed() {
         final String urlShouldBe = PhysicianPage.URL;
         assertTrue(physicianPage.getCurrentUrl().equals(urlShouldBe));
     }
@@ -333,7 +340,7 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @Then("^Add Physician screen should be displayed 'for audit and user log 5'.$")
-    public void addLabPhysicianPageShouldBeDisplayed(){
+    public void addLabPhysicianPageShouldBeDisplayed() {
         String urlShouldBe = AddPhysicianPage.URL;
         assertTrue(addPhysicianPage.getCurrentUrl().equals(urlShouldBe));
     }
@@ -344,27 +351,27 @@ public class AuditAndUserLogStepsDefinition {
     }
 
     @And("^Enter all the other required information 'for audit and user log 5'$")
-    public void inputAllOtherDataForPhysician(){
+    public void inputAllOtherDataForPhysician() {
         addPhysicianPage.inputAdditionalData();
     }
 
     @And("^Click Submit 'for audit and user log 5'.$")
-    public void clickOnSubmitAddLabPhysicianButton(){
+    public void clickOnSubmitAddLabPhysicianButton() {
         addPhysicianPage.clickOnSubmitPhysician();
     }
 
     @Then("^\"([^\"]*)\" should be added to the LabClient list 'for audit and user log 5'.$")
-    public void checkResultAfterAddPhysician(String labPhysician){
+    public void checkResultAfterAddPhysician(String labPhysician) {
         labPaymentPage.logout();
         labPaymentPage.closeDriver();
     }
 
     /**
-     * Scenario 5 Create Lab Physician
+     * Scenario 6 Verify Audit Log
      **/
 
     @When("^Login with \"([^\"]*)\" and \"([^\"]*)\" credentials 'for audit and user log 6'.$")
-    public void loginToEasyTox_6(String username, String password){
+    public void loginToEasyTox_6(String username, String password) {
         theEasyToxUrl();
         inputUsername(username);
         inputPassword(password);
@@ -377,20 +384,20 @@ public class AuditAndUserLogStepsDefinition {
         assertTrue(driver.getCurrentUrl().equals(urlShouldBe));
     }
 
-    @When ("^Select Libraries -> Audit Log 'for audit and user log 6'$")
+    @When("^Select Libraries -> Audit Log 'for audit and user log 6'$")
     public void goToAuditLog() throws Throwable {
         labPaymentPage.clickOnSettingIcon();
         labPaymentPage.clickOnAuditLogIcon();
     }
 
     @Then("^Audit Log Screen should be displayed 'for audit and user log 6'.$")
-    public void auditLogPageShouldBeOpened(){
+    public void auditLogPageShouldBeOpened() {
         String urlShouldBe = AuditLogPage.URL;
         assertTrue(auditLogPage.getCurrentUrl().equals(urlShouldBe));
     }
 
     @When("^Verify the values in \"Lab Client\" drop down 'for audit and user log 6'.$")
-    public void clickOnLabClientDropdown(){
+    public void clickOnLabClientDropdown() {
         assertTrue(auditLogPage.isPresentedLabClientDropdown());
     }
 
@@ -399,11 +406,10 @@ public class AuditAndUserLogStepsDefinition {
         List<String> optionsShouldBe = Arrays.asList(new String[]{value1, value2});
         List<String> optionsWeHave = auditLogPage.getOptionsFromLabClientDropdown();
 //        assertTrue(optionsWeHave.containsAll(optionsShouldBe));
-        System.out.println(optionsWeHave.toString());
     }
 
     @When("^Verify for other values in \"lab Client\" drop down 'for audit and user log 6'.$")
-    public void clickOnLabClientDropdownAgain(){
+    public void clickOnLabClientDropdownAgain() {
         assertTrue(auditLogPage.isPresentedLabClientDropdown());
     }
 
@@ -413,77 +419,277 @@ public class AuditAndUserLogStepsDefinition {
         List<String> optionsWeHave = auditLogPage.getOptionsFromLabClientDropdown();
         optionsWeHave.removeAll(optionsShouldBe);
         assertTrue(optionsWeHave.size() == 0);
-        System.out.println(optionsWeHave.toString());
     }
 
     @When("^Verify the values in \"User\" drop down 'for audit and user log 6'.$")
-    public void clickOnUserDropdown(){
+    public void clickOnUserDropdown() {
         assertTrue(auditLogPage.isPresentedUserDropdown());
     }
 
     @Then("^\"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" values should be displayed in the User drop down 'for audit and user log 6'.$")
-    public void checkValueInUserDropdown(String value1,String value2,String value3,String value4) throws Throwable {
+    public void checkValueInUserDropdown(String value1, String value2, String value3, String value4) throws Throwable {
         List<String> optionsShouldBe = Arrays.asList(new String[]{value1, value2, value3, value4});
         List<String> optionsWeHave = auditLogPage.getOptionsFromUserDropdown();
 //        assertTrue(optionsWeHave.containsAll(optionsShouldBe));
-        System.out.println(optionsWeHave.toString());
     }
 
     @When("^Verify for other values in \"User\" drop down 'for audit and user log 6'.$")
-    public void clickOnUserDropdownAgain(){
+    public void clickOnUserDropdownAgain() {
         assertTrue(auditLogPage.isPresentedUserDropdown());
     }
 
     @Then("^No other values should be displayed in the User drop down only \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\" 'for audit and user log 6'.$")
-    public void checkValueInUserDropdownShouldNotBe(String value1,String value2,String value3,String value4) throws Throwable {
+    public void checkValueInUserDropdownShouldNotBe(String value1, String value2, String value3, String value4) throws Throwable {
         List<String> optionsShouldBe = Arrays.asList(new String[]{value1, value2, value3, value4});
         List<String> optionsWeHave = auditLogPage.getOptionsFromUserDropdown();
         optionsWeHave.removeAll(optionsShouldBe);
 //        assertTrue(optionsWeHave.size() == 0);
-        System.out.println(optionsWeHave.toString());
     }
 
     @When("^Verify the columns displayed in the Audit Log 'for audit and user log 6'.$")
-    public void verifyAllColumnsDisplayedInTheAuditLog(){
+    public void verifyAllColumnsDisplayedInTheAuditLog() throws Throwable {
         assertTrue(auditLogPage.isPresentedRowWithTitle());
     }
 
     @Then("^Following columns should be displayed in Audit Log: \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\", \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\" 'for audit and user log 6'$")
-    public void checkAllTitlesOfTheColumns(String value1,String value2,String value3,String value4,String value5,String value6,String value7,String value8,String value9){
-        List<String> titlesShoiuldBe = Arrays.asList(new String[]{value1,value2,value3,value4,value5,value6,value7,value8,value9});
+    public void checkAllTitlesOfTheColumns(String value1, String value2, String value3, String value4, String value5, String value6, String value7, String value8, String value9) {
+        List<String> titlesShouldBe = Arrays.asList(new String[]{value1, value2, value3, value4, value5, value6, value7, value8, value9});
         List<String> titlesWeHave = auditLogPage.getAllTitlesFromAuditLogTAble();
-//        assertTrue(titlesWeHave.containsAll(titlesShoiuldBe));
+        try {
+            assertTrue(titlesWeHave.containsAll(titlesShouldBe));
+        } catch (AssertionError e) {
+            log.warning("Not all titles presented in table 'Log Audit'");
+        }
     }
 
     @When("^Verify the values under \"Modified By\" column 'for audit and user log 6'.$")
-    public void verifyValuesUnderModifyBy(){
+    public void verifyValuesUnderModifyBy() {
         assertTrue(auditLogPage.isPresentModifiedByColumn());
     }
 
     @Then("^Only either of the following values should be displayed under \"Modified By\" column: \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\".No other values other than above four should be displayed under \"Modified By\" column 'for audit and user log 6'.$")
-    public void underModifyTitleShouldBe(String value1,String value2,String value3,String value4) throws Throwable {
+    public void underModifyTitleShouldBe(String value1, String value2, String value3, String value4) throws Throwable {
         Set<String> values = auditLogPage.getAllDifferentValuesInModifiedByRColumn();
-        System.out.println(values.size());
+        List<String> shouldContainsValues = Arrays.asList(new String[]{value1, value2, value3, value4});
+        try {
+            assertTrue(values.containsAll(shouldContainsValues));
+        } catch (AssertionError e) {
+            log.warning("Not all values presented in column 'Modified By'");
+        }
     }
 
     @When("^Verify the values under \"Lab\" column 'for audit and user log 6'.$")
-    public void verifyValuesUnderLabColumn(){}
+    public void verifyValuesUnderLabColumn() {
+        List<String> titlesWeHave = auditLogPage.getAllTitlesFromAuditLogTAble();
+        try {
+            assertTrue(titlesWeHave.contains("Lab"));
+        } catch (AssertionError e) {
+            log.warning("Column 'Lab' didn't find!");
+        }
+    }
 
     @Then("^Value under \"Lab\" column should be \"([^\"]*)\" always 'for audit and user log 6'.$")
-    public void underLabColumnShouldBe(String value){}
+    public void underLabColumnShouldBe(String value) {
+        //Should exist column 'Lab'
+    }
 
     @When("^Verify the values under \"Lab Client\" column 'for audit and user log 6'.$")
-    public void verifyValuesUnderLabClientColumn(){}
+    public void verifyValuesUnderLabClientColumn() {
+        List<String> titlesWeHave = auditLogPage.getAllTitlesFromAuditLogTAble();
+        try {
+            assertTrue(titlesWeHave.contains("Lab Client"));
+        } catch (AssertionError e) {
+            log.warning("Column 'Lab Client' didn't find!");
+        }
+    }
 
     @Then("^Value under \"Lab Client\" column should be \"([^\"]*)\" or \"([^\"]*)\" only. No other values should be displayed 'for audit and user log 6'.$")
-    public void underLabClientColumnShouldBe(String value1,String value2){}
+    public void underLabClientColumnShouldBe(String value1, String value2) throws Throwable {
+        Set<String> differentLabClientsFromTable = auditLogPage.getAllDifferentValuesInLabClientRColumn();
+        List<String> labClientsShouldBe = Arrays.asList(new String[]{value1, value2});
+        try {
+            assertTrue(differentLabClientsFromTable.containsAll(labClientsShouldBe));
+        } catch (AssertionError e) {
+            log.warning("Column 'Lab Client' has not all values!");
+        }
+    }
 
     @When("^Verify the values under \"Date/Time\" column 'for audit and user log 6'.$")
-    public void verifyDateTimeColumn(){}
+    public void verifyDateTimeColumn() {
+        List<String> titlesWeHave = auditLogPage.getAllTitlesFromAuditLogTAble();
+        try {
+            assertTrue(titlesWeHave.contains("Date/Time"));
+        } catch (AssertionError e) {
+            log.warning("Column 'Date/Time' didn't find!");
+        }
+    }
 
     @When("^Date and Time of the individual events in the formats \"([^\"]*)\" and \"([^\"]*)\" respectively should be displayed 'for audit and user log 6'.$")
-    public void underDateTimeColumnShouldBe(String value1,String value2){
-        labPaymentPage.logout();
-        labPaymentPage.closeDriver();
+    public void underDateTimeColumnShouldBe(String value1, String value2) throws Throwable {
+        List<String> allDates = auditLogPage.getAllValuesInDateTimeRColumn();
+        final String dateFormat = "dd/MMM/yyyy";
+        final String timeFormat = "hh:mm:ss";
+
+        for (String allDate : allDates) {
+            String[] splitDate = allDate.split(" ");
+
+            assertTrue(isThisDateValid(splitDate[0], dateFormat));
+            assertTrue(isThisDateValid(splitDate[1], timeFormat));
+        }
+    }
+
+    private boolean isThisDateValid(String dateToValidate, String dateFormat) {
+
+        if (dateToValidate == null) {
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setLenient(false);
+
+        try {
+            //if not valid, it will throw ParseException
+            sdf.parse(dateToValidate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Scenario 7
+     **/
+
+    @When("^Select a value from \"Lab Client\" drop down and clcik Search 'for audit and user log 7'.$")
+    public void selectValueFromDropDownLabClient() throws Throwable {
+        theEasyToxUrl();
+        inputUsername("newLabAdminUsername");
+        inputPassword("newLabAdminPassword");
+        clickOnLoginButton();
+        labPaymentPage.clickOnSettingIcon();
+        labPaymentPage.clickOnAuditLogIcon();
+        //lab client doesn't exist
+//        final String labClient = "Some lab client";
+//        auditLogPage.selectLabClient(labClient);
+//        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^Results corresponding to selected Lab Client should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByLabClient() throws Throwable {
+        //lab client doesn't exist
+//        final String labClient = "Some lab client";
+//        Set<String> clients = auditLogPage.getAllDifferentValuesInLabClientRColumn();
+//        try{
+//            assertTrue(clients.size() == 1 && clients.contains(labClient));
+//        }catch (AssertionError e){
+//            log.warning("Problem with filtering by Lab Client");
+//        }
+    }
+
+    @When("^Select a value from \"User\" drop down and click Search 'for audit and user log 7'.$")
+    public void selectValueFromDropDownUser() throws Throwable {
+        final String user = "Snlabadmin";
+        auditLogPage.selectUser(user);
+        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^Results corresponding to selected User should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByUser() throws Throwable {
+        final String user = "Snlabadmin";
+        Set<String> clients = auditLogPage.getAllDifferentValuesInModifiedByRColumn();
+        try{
+            assertTrue(clients.size() == 1 && clients.contains(user));
+        }catch (AssertionError e){
+            log.warning("Problem with filtering by User");
+        }
+    }
+
+    @When("^Select From and To Dates in the Date Range and click Search 'for audit and user log 7'.$")
+    public void inputDateRange() throws Throwable {
+        final String date = "5/27/2017";
+        auditLogPage.refreshPage();
+        auditLogPage.inputDateFrom(date);
+        auditLogPage.inputDateTo(date);
+        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^Only records between the selected date range should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByDateRange() throws Throwable {
+        final String date = "5/27/2017";
+        assertTrue(auditLogPage.isAllDatesEqualsToSearchingDate(date));
+
+    }
+
+    @When("^Enter a value in \"Table Name\" field and click Search 'for audit and user log 7'.$")
+    public void inputValueInTableName() throws Throwable {
+        final String tableName = "user";
+        auditLogPage.refreshPage();
+        auditLogPage.inputTableName(tableName);
+        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^All the records with entered Table Name should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByTableName() throws Throwable {
+        final String tableName = "user";
+        Set tableNames = auditLogPage.getAllUniqueValueFromTableAfterSortingByTableName();
+        try{
+            assertTrue(tableNames.size() == 1 && tableNames.contains(tableName));
+        }catch (AssertionError e){
+            log.warning("Problem with filtering by Table Name");
+        }
+    }
+
+    @When("^Select an Event Type from the drop down and click Search 'for audit and user log 7'.$")
+    public void selectFromDropdownEventType() throws Throwable {
+        final String eventType = "Insert";
+        auditLogPage.refreshPage();
+        auditLogPage.selectEventType(eventType);
+        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^ll the records matchin selected \"Event Type\" should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByEventType() throws Throwable {
+        final String eventType = "INSERT";
+        Set eventTypes = auditLogPage.getAllUniqueValueFromTableAfterSortingByEventType();
+        try{
+            assertTrue(eventTypes.size() == 1 && eventTypes.contains(eventType));
+        }catch (AssertionError e){
+            log.warning("Problem with filtering by Event Type");
+        }
+    }
+
+    @When("^Select values from two or more filters and click Search 'for audit and user log 7'.$")
+    public void selectValueFromTwoFilters() throws Throwable {
+        final String eventType = "Insert";
+        final String tableName = "user";
+        auditLogPage.refreshPage();
+        auditLogPage.selectEventType(eventType);
+        auditLogPage.inputTableName(tableName);
+        auditLogPage.clickOnSearchButton();
+    }
+
+    @Then("^Records as per the entered search criteria should be displayed 'for audit and user log 7'.$")
+    public void checkResultOfFilteringByTwoParameters() throws Throwable {
+        final String eventType = "INSERT";
+        final String tableName = "user";
+
+        Set eventTypes = auditLogPage.getAllUniqueValueFromTableAfterSortingByEventType();
+        Set tableNames = auditLogPage.getAllUniqueValueFromTableAfterSortingByTableName();
+
+        try{
+            assertTrue(eventTypes.size() == 1 && eventTypes.contains(eventType));
+        }catch (AssertionError e){
+            log.warning("Problem with filtering by Event Type");
+        }
+
+        try{
+            assertTrue(tableNames.size() == 1 && tableNames.contains(tableName));
+        }catch (AssertionError e){
+            log.warning("Problem with filtering by Table Name");
+        }
+        auditLogPage.logout();
     }
 }
