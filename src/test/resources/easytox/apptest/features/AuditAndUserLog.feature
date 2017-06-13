@@ -130,3 +130,10 @@ Feature: Audit and User log
     When Select values from two or more filters and click Search 'for audit and user log 7'.
     Then Records as per the entered search criteria should be displayed 'for audit and user log 7'.
 
+    When Click on down arrow icon  on each column name.
+    Then Records should be displayed based on the ascending order of the selected column
+
+    When Click on Up arrow icon on each column name.
+    Then Records should be displayed based on the descending order of the selected column
+
+

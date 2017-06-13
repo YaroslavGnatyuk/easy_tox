@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -571,7 +572,7 @@ public class AuditAndUserLogStepsDefinition {
         clickOnLoginButton();
         labPaymentPage.clickOnSettingIcon();
         labPaymentPage.clickOnAuditLogIcon();
-        //lab client doesn't exist
+        //lab client doesn't exist!!!
 //        final String labClient = "Some lab client";
 //        auditLogPage.selectLabClient(labClient);
 //        auditLogPage.clickOnSearchButton();
@@ -579,7 +580,7 @@ public class AuditAndUserLogStepsDefinition {
 
     @Then("^Results corresponding to selected Lab Client should be displayed 'for audit and user log 7'.$")
     public void checkResultOfFilteringByLabClient() throws Throwable {
-        //lab client doesn't exist
+        //lab client doesn't exist!!!
 //        final String labClient = "Some lab client";
 //        Set<String> clients = auditLogPage.getAllDifferentValuesInLabClientRColumn();
 //        try{
@@ -676,6 +677,8 @@ public class AuditAndUserLogStepsDefinition {
         final String eventType = "INSERT";
         final String tableName = "user";
 
+        auditLogPage.refreshPage();
+
         Set eventTypes = auditLogPage.getAllUniqueValueFromTableAfterSortingByEventType();
         Set tableNames = auditLogPage.getAllUniqueValueFromTableAfterSortingByTableName();
 
@@ -690,6 +693,26 @@ public class AuditAndUserLogStepsDefinition {
         }catch (AssertionError e){
             log.warning("Problem with filtering by Table Name");
         }
+
+    }
+
+    @When("^Click on down arrow icon  on each column name.$")
+    public void clickOnDownArrowIconOnEachColumn(){
+        auditLogPage.checkBothTypeOfSorting();
+    }
+
+    @Then("^Records should be displayed based on the ascending order of the selected column$")
+    public void checkResultOfAscendingSorting(){
+
+    }
+
+    @When("^Click on Up arrow icon on each column name.$")
+    public void clickOnUpArrowIconOnEachColumn(){
+
+    }
+
+    @Then("^Records should be displayed based on the descending order of the selected column$")
+    public void checkResultOfDescendingSorting(){
         auditLogPage.logout();
     }
 }
