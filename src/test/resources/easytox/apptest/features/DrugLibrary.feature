@@ -22,7 +22,7 @@ Feature: Drug library
 #      | compound  |
 #      | Compound1 |
 #      | Compound2 |
-##Scenario 2
+#Scenario 2
 #  Scenario Outline: Create a Compound with Type as 'Validity Testing'
 #    When Go to Libraries -> Compound Library for drug library scenario 2
 #    Then Compound page should be open for drug library scenario 2
@@ -120,26 +120,26 @@ Feature: Drug library
 #    And enter all the other data and click Submit 'for drug library scenario 8'.
 #    Then A new Compound "NewValTestGrp" should be created successfully 'for drug library scenario 8'.
 #
-##Scenario 9
-#  Scenario: Validating Testing Profile
-#    When Go to Libraries -> Testing Profile 'for drug library scenario 9'
-#    Then Profile page should be open 'for drug library scenario 9'
-#
-#    When Click 'Add Profile' icon 'for drug library scenario 9'.
-#    Then Add Profile screen should be displayed 'for drug library scenario 9'.
-#
-#    When Verify the values displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.
-#    Then Following values should be displayed in 'TestScreen Group' dropdown: "NewCompTestGrp" 'for drug library scenario 9'
-#
-#    When Verify the values NOT displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.
-#    Then Following values should NOT be displayed in 'TestScreen Group' dropdown: "NewValTestGrp" 'for drug library scenario 9'
-#
-#    When Verify the values displayed in 'Validity Test Group' drop down 'for drug library scenario 9'.
-#    Then Following values should be displayed in 'Validity Test  Group' dropdown: "NewValTestGrp" 'for drug library scenario 9'
-#
-#    When Verify the values NOT displayed in 'Validity Test  Group' drop down 'for drug library scenario 9'.
-#    Then Following values should NOT be displayed in 'Validity TestScreen Group' dropdown: "NewCompTestGrp" 'for drug library scenario 9'
+#Scenario 9
+  Scenario: Validating Testing Profile
+    When Go to Libraries -> Testing Profile 'for drug library scenario 9'
+    Then Profile page should be open 'for drug library scenario 9'
 
+    When Click 'Add Profile' icon 'for drug library scenario 9'.
+    Then Add Profile screen should be displayed 'for drug library scenario 9'.
+
+    When Verify the values displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.
+    Then Following values should be displayed in 'TestScreen Group' dropdown: "NewCompTestGrp1" 'for drug library scenario 9'
+
+    When Verify the values NOT displayed in 'TestScreen Group' drop down 'for drug library scenario 9'.
+    Then Following values should NOT be displayed in 'TestScreen Group' dropdown: "NewValTestGrp1" 'for drug library scenario 9'
+
+    When Verify the values displayed in 'Validity Test Group' drop down 'for drug library scenario 9'.
+    Then Following values should be displayed in 'Validity Test  Group' dropdown: "NewValTestGrp2" 'for drug library scenario 9'
+
+    When Verify the values NOT displayed in 'Validity Test  Group' drop down 'for drug library scenario 9'.
+    Then Following values should NOT be displayed in 'Validity TestScreen Group' dropdown: "NewCompTestGrp" 'for drug library scenario 9'
+#
 #Scenario 10
   Scenario: Create a Testing Profile
     When Go to Libraries -> Testing Profile for drug library scenario 10'

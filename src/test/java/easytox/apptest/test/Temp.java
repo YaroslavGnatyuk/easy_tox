@@ -1,4 +1,4 @@
-package easytox.apptest.pages;
+package easytox.apptest.test;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import org.junit.Test;

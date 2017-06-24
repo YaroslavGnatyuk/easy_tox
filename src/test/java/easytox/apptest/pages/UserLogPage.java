@@ -2,30 +2,27 @@ package easytox.apptest.pages;
 
 import easytox.apptest.utils.AmountOfRecordsInTable;
 import easytox.apptest.utils.WebConnector;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
-
-public class AuditLogPage extends AbstractPage {
+public class UserLogPage extends AbstractPage{
     private static final WebConnector webConnector;
     public static final String URL;
 
     static {
         webConnector = new WebConnector();
-        URL = webConnector.getString(WebConnector.myUrl.URL_SIT, "auditLogUrl");
+        URL = webConnector.getString(WebConnector.myUrl.URL_SIT, "userLogUrl");
     }
 
-    public AuditLogPage(WebDriver driver) {
+    public UserLogPage(WebDriver driver) {
         super(driver);
     }
 
@@ -79,25 +76,25 @@ public class AuditLogPage extends AbstractPage {
                 .collect(Collectors.toList());
     }
 
-    public boolean isPresentModifiedByColumn() {
-        final String titleShouldBe = "Modified By";
-        String title = connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "titleOfModifiedByColumn")).getText();
+    public boolean isPresentUsernameColumn() {
+        final String titleShouldBe = "User Name";
+        String title = connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "titleOfUsernameColumn")).getText();
 
         return title.equals(titleShouldBe);
     }
 
-    public Set<String> getAllDifferentValuesInModifiedByRColumn() throws Throwable {
+    public Set<String> getAllDifferentValuesInUsernameColumn() throws Throwable {
         waitTime(100);
-        int modifiedByColumn = 0;
+        int userNameColumn = 0;
         new Select(connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "selectAmountOfRawPerOnePage")))
-                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWO_HUNDRED));
+                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWENTY_FIVE));
 
         List<WebElement> allRows = connector.getWebElements(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "allRowsWithDataInAuditLogTable"));
 
-        return allRows.stream().map(e -> e.findElements(By.cssSelector("td")).get(modifiedByColumn).getText()).collect(Collectors.toSet());
+        return allRows.stream().map(e -> e.findElements(By.cssSelector("td")).get(userNameColumn).getText()).collect(Collectors.toSet());
     }
 
-    public Set<String> getAllDifferentValuesInLabClientRColumn() throws Throwable {
+    public Set<String> getAllDifferentValuesInLabClientColumn() throws Throwable {
         int labClientColumn = 1;
         new Select(connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "selectAmountOfRawPerOnePage")))
                 .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWO_HUNDRED));
@@ -107,15 +104,29 @@ public class AuditLogPage extends AbstractPage {
         return allRows.stream().map(e -> e.findElements(By.cssSelector("td")).get(labClientColumn).getText()).collect(Collectors.toSet());
     }
 
+    public boolean isVisitedURLColumnShowed(){
+        return connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "titleOfVisitedURL")).isDisplayed();
+    }
+
+    public boolean isDateTimeColumnPresented(){
+        return connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "titleOfDateTimeColumn")).isDisplayed();
+    }
+
+    public boolean isCaseAccColumnPresented(){
+        return connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "titleOfCaseAccColumn")).isDisplayed();
+    }
+
     public List<String> getAllValuesInDateTimeRColumn() throws Throwable {
-        int labDateTimeColumn = 2;
+        int labDateTimeColumn = 3;
         new Select(connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "selectAmountOfRawPerOnePage")))
-                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWO_HUNDRED));
+                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWENTY_FIVE));
 
         List<WebElement> allRows = connector.getWebElements(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "allRowsWithDataInAuditLogTable"));
 
         return allRows.stream().map(e -> e.findElements(By.cssSelector("td")).get(labDateTimeColumn).getText()).collect(Collectors.toList());
     }
+
+
 
     public void clickOnSearchButton() throws Throwable {
         waitTime(1000);
@@ -135,12 +146,7 @@ public class AuditLogPage extends AbstractPage {
     }
 
     public void refreshPage() {
-        driver.navigate().to(AuditLogPage.URL);
-//        try {
-//            waitTime(500);
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
+        driver.navigate().to(UserLogPage.URL);
     }
 
     public void inputDateFrom(String date) throws Throwable {
@@ -159,9 +165,9 @@ public class AuditLogPage extends AbstractPage {
 
         Date searchingDate = dateFormatWeInput.parse(date);
 
-        int labDateTimeColumn = 2;
+        int labDateTimeColumn = 3;
         new Select(connector.getWebElement(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "selectAmountOfRawPerOnePage")))
-                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWO_HUNDRED));
+                .selectByVisibleText(AmountOfRecordsInTable.getValue(AmountOfRecordsInTable.TWENTY_FIVE));
 
         List<WebElement> allRows = connector.getWebElements(driver, WebConnector.Identifier.css, webConnector.getString(WebConnector.myUrl.URL_OR, "allRowsWithDataInAuditLogTable"));
         //We get all dates from table, split them and take first part. After that we add first part to the set.
@@ -329,5 +335,3 @@ public class AuditLogPage extends AbstractPage {
 
     }
 }
-
-

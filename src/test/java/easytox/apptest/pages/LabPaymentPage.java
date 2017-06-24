@@ -35,4 +35,9 @@ public class LabPaymentPage extends AbstractPage{
         waitTime(1000);
         connector.getWebElement(driver, WebConnector.Identifier.linktext, "Audit Log").click();
     }
+
+    public void clickOnUserLogIcon() throws Throwable {
+        waitTime(1000);
+        connector.getWebElement(driver, WebConnector.Identifier.linktext, "User Log").click();
+    }
 }
